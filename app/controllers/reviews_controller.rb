@@ -4,7 +4,7 @@ class ReviewsController < ApplicationController
   # GET /reviews
   def index
     @reviews = Review.all
-
+    # @country= Country.find(params[:country_id])
     render json: @reviews
   end
 

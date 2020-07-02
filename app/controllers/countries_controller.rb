@@ -5,7 +5,7 @@ class CountriesController < ApplicationController
   def index
     @countries = Country.all
 
-    render json: @countries
+    render json: @countries.as_json(include: {reviews: {only: [:id, :city_visited, :date_visited, :experience]}})
   end
 
   # GET /countries/1
@@ -46,6 +46,6 @@ class CountriesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def country_params
-      params.require(:country).permit(:name, :continent)
+      params.require(:country).permit(:name, :continent, :image)
     end
 end

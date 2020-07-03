@@ -10,12 +10,16 @@ class CountriesController < ApplicationController
 
   # GET /countries/1
   def show
-    render json: @country
+    render json: @country.as_json(include: {reviews: {only: [:id, :city_visited, :date_visited, :experience]}})
   end
+
 
   # POST /countries
   def create
+    byebug
     @country = Country.new(country_params)
+
+
 
     if @country.save
       render json: @country, status: :created, location: @country
@@ -46,6 +50,6 @@ class CountriesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def country_params
-      params.require(:country).permit(:name, :continent, :image)
+      params.require(:country).permit(:name, :continent, :image, reviews_attributes: [:city_visited, :date_visited, :experience, :country_id])
     end
 end

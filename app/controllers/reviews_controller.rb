@@ -15,6 +15,7 @@ class ReviewsController < ApplicationController
 
   # POST /reviews
   def create
+    binding.pry
     @review = Review.new(review_params)
 
     if @review.save
@@ -35,7 +36,6 @@ class ReviewsController < ApplicationController
 
   # DELETE /reviews/1
   def destroy
-    @review. Review.find_by(params[:id])
     @review.destroy
   end
 
@@ -47,6 +47,6 @@ class ReviewsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def review_params
-      params.require(:review).permit(:city_visited, :date_visited, :experience)
+      params.require(:review).permit(:id, :city_visited, :date_visited, :experience, :country_id)
     end
 end

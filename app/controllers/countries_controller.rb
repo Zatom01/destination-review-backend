@@ -16,15 +16,29 @@ class CountriesController < ApplicationController
 
   # POST /countries
   def create
+    # @country_exists= Country.find_by(:name => params[:name])
+
+    # if @country_exists
+
+    #   @country=Country.find_by(params[:name])
+    #   @review= Review.create(params[:reviews_attributes])
+    #   @review.country = @country
+    #   byebug
+    #   if @country.save
+    #     render json: @country.as_json(include: {reviews: {only: [:id, :city_visited, :date_visited, :experience]}})
+    #   else
+    #     render json: @country.errors, status: :unprocessable_entity
+    #   end
+
+
+    # else
     @country = Country.new(country_params)
-
-
-
     if @country.save
       render json: @country.as_json(include: {reviews: {only: [:id, :city_visited, :date_visited, :experience]}})
     else
       render json: @country.errors, status: :unprocessable_entity
     end
+
   end
 
   # PATCH/PUT /countries/1
@@ -49,6 +63,6 @@ class CountriesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def country_params
-      params.require(:country).permit(:id, :name, :continent, :image, reviews_attributes: [:id, :city_visited, :date_visited, :experience, :country_id])
+      params.require(:country).permit(:id, :name, :continent, :image, :reviews_attributes => [:id, :city_visited, :date_visited, :experience, :country_id])
     end
 end
